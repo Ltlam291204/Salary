@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_pay_slip_tree" model="ir.ui.view">
+        <field name="name">Phiếu lương - Tree</field>
+        <field name="model">wdw.pay.slip</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="employee_id"/>
+                <field name="period_id"/>
+                <field name="gross_salary"/>
+                <field name="total_deductions"/>
+                <field name="net_salary"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+    
+    <record id="view_pay_slip_form" model="ir.ui.view">
+        <field name="name">Phiếu lương - Form</field>
+        <field name="model">wdw.pay.slip</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_send_payslip" string="Gửi email" type="object" states="draft" class="oe_highlight"/>
+                    <button name="action_print_payslip" string="In phiếu lương" type="object" class="oe_highlight"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,sent"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>PHIẾU LƯƠNG THÁNG <field name="period_id" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="employee_id" readonly="1"/>
+                            <field name="employee_code" readonly="1"/>
+                            <field name="department_id" readonly="1"/>
+                            <field name="job_id" readonly="1"/>
+                            <field name="join_date" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="bank_account" readonly="1"/>
+                            <field name="dependents" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Thời gian làm việc">
+                            <group>
+                                <group>
+                                    <field name="working_days" readonly="1"/>
+                                    <field name="leave_days" readonly="1"/>
+                                    <field name="unpaid_leave_days" readonly="1"/>
+                                    <field name="salary_deduction_days" readonly="1"/>
+                                </group>
+                                <group>
+                                    <field name="salary_75_percent_days" readonly="1"/>
+                                    <field name="half_leave_days" readonly="1"/>
+                                    <field name="funeral_wedding_days" readonly="1"/>
+                                    <field name="holiday_days" readonly="1"/>
+                                    <field name="late_early_hours" readonly="1"/>
+                                    <field name="leave_balance" readonly="1"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Thu nhập">
+                            <group>
+                                <group string="Lương và phụ cấp">
+                                    <field name="workday_pay" readonly="1"/>
+                                    <field name="seniority_allowance" readonly="1"/>
+                                    <field name="transport_allowance" readonly="1"/>
+                                    <field name="house_allowance" readonly="1"/>
+                                    <field name="environment_allowance" readonly="1"/>
+                                    <field name="position_allowance" readonly="1"/>
+                                    <field name="work_allowance" readonly="1"/>
+                                    <field name="skill_allowance" readonly="1"/>
+                                    <field name="attendance_allowance" readonly="1"/>
+                                    <field name="soldering_xray_allowance" readonly="1"/>
+                                </group>
+                                <group string="OT">
+                                    <field name="ot_150_amount" readonly="1"/>
+                                    <field name="ot_210_amount" readonly="1"/>
+                                    <field name="ot_night_200_amount" readonly="1"/>
+                                    <field name="ot_night_150_amount" readonly="1"/>
+                                    <field name="sunday_200_amount" readonly="1"/>
+                                    <field name="sunday_270_amount" readonly="1"/>
+                                    <field name="holiday_300_amount" readonly="1"/>
+                                    <field name="holiday_390_amount" readonly="1"/>
+                                </group>
+                                <group string="Phụ cấp khác">
+                                    <field name="birthday_amount" readonly="1"/>
+                                    <field name="business_trip_amount" readonly="1"/>
+                                    <field name="compensation_amount" readonly="1"/>
+                                    <field name="evaluation_bonus" readonly="1"/>
+                                    <field name="child_support" readonly="1"/>
+                                    <field name="women_amount" readonly="1"/>
+                                </group>
+                            </group>
+                            <group class="oe_subtotal_footer">
+                                <field name="gross_salary" readonly="1" class="oe_subtotal_footer_separator"/>
+                                <field name="other_bonus" readonly="1"/>
+                            </group>
+                        </page>
+                        <page string="Các khoản trừ">
+                            <group>
+                                <group>
+                                    <field name="violation_deduction" readonly="1"/>
+                                    <field name="uniform_card_deduction" readonly="1"/>
+                                    <field name="negative_leave_deduction" readonly="1"/>
+                                    <field name="late_early_deduction" readonly="1"/>
+                                </group>
+                                <group>
+                                    <field name="social_insurance" readonly="1"/>
+                                    <field name="health_insurance" readonly="1"/>
+                                    <field name="unemployment_insurance" readonly="1"/>
+                                    <field name="pit_amount" readonly="1"/>
+                                    <field name="union_fee" readonly="1"/>
+                                </group>
+                            </group>
+                            <group class="oe_subtotal_footer">
+                                <field name="total_deductions" readonly="1" class="oe_subtotal_footer_separator"/>
+                            </group>
+                        </page>
+                        <page string="Tổng kết">
+                            <group>
+                                <group>
+                                    <field name="gross_salary" readonly="1"/>
+                                </group>
+                                <group>
+                                    <field name="net_salary" readonly="1" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+    <record id="action_pay_slip" model="ir.actions.act_window">
+        <field name="name">Phiếu lương</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">wdw.pay.slip</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

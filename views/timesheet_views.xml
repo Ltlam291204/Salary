@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_salary_period_tree" model="ir.ui.view">
+        <field name="name">Kỳ lương - Tree</field>
+        <field name="model">wdw.salary.period</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+    
+    <record id="view_salary_period_form" model="ir.ui.view">
+        <field name="name">Kỳ lương - Form</field>
+        <field name="model">wdw.salary.period</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_confirm" string="Xác nhận" type="object" states="draft" class="oe_highlight"/>
+                    <button name="action_calculate" string="Tính lương" type="object" states="confirmed" class="oe_highlight"/>
+                    <button name="action_pay" string="Chi trả" type="object" states="calculated" class="oe_highlight"/>
+                    <button name="action_draft" string="Quay lại nháp" type="object" states="confirmed,calculated"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,calculated,paid"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                    </group>
+                    <field name="description"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+    <record id="action_salary_period" model="ir.actions.act_window">
+        <field name="name">Kỳ lương</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">wdw.salary.period</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    
+    <record id="view_timesheet_tree" model="ir.ui.view">
+        <field name="name">Bảng chấm công - Tree</field>
+        <field name="model">wdw.timesheet</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="employee_id"/>
+                <field name="date"/>
+                <field name="day_of_week_name"/>
+                <field name="check_in_hour"/>
+                <field name="check_out_hour"/>
+                <field name="working_hours"/>
+                <field name="leave_type"/>
+                <field name="ot_150_percent"/>
+                <field name="late_early_hours"/>
+            </tree>
+        </field>
+    </record>
+    
+    <record id="view_timesheet_form" model="ir.ui.view">
+        <field name="name">Bảng chấm công - Form</field>
+        <field name="model">wdw.timesheet</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="employee_id"/>
+                        <field name="date"/>
+                        <field name="day_of_week_name"/>
+                        <field name="period_id"/>
+                    </group>
+                    <group>
+                        <field name="check_in_hour"/>
+                        <field name="check_out_hour"/>
+                        <field name="working_hours"/>
+                        <field name="normal_working_hours"/>
+                    </group>
+                    <group>
+                        <field name="leave_type"/>
+                        <field name="late_early_hours"/>
+                        <field name="late_early_amount"/>
+                    </group>
+                    <notebook>
+                        <page string="OT Bình thường">
+                            <group>
+                                <field name="ot_150_percent"/>
+                                <field name="ot_210_percent"/>
+                            </group>
+                        </page>
+                        <page string="OT Đêm">
+                            <group>
+                                <field name="ot_night_200_percent"/>
+                                <field name="ot_night_150_percent"/>
+                            </group>
+                        </page>
+                        <page string="Chủ nhật">
+                            <group>
+                                <field name="sunday_200_percent"/>
+                                <field name="sunday_270_percent"/>
+                            </group>
+                        </page>
+                        <page string="Ngày lễ">
+                            <group>
+                                <field name="holiday_300_percent"/>
+                                <field name="holiday_390_percent"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+    <record id="action_timesheet" model="ir.actions.act_window">
+        <field name="name">Bảng chấm công</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">wdw.timesheet</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

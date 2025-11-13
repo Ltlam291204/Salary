@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_salary_calculation_tree" model="ir.ui.view">
+        <field name="name">Bảng tính lương - Tree</field>
+        <field name="model">wdw.salary.calculation</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="employee_id"/>
+                <field name="period_id"/>
+                <field name="gross_salary"/>
+                <field name="total_deductions"/>
+                <field name="net_salary"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+    
+    <record id="view_salary_calculation_form" model="ir.ui.view">
+        <field name="name">Bảng tính lương - Form</field>
+        <field name="model">wdw.salary.calculation</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_calculate_from_timesheet" string="Tính từ chấm công" type="object" states="draft" class="oe_highlight"/>
+                    <button name="action_confirm" string="Xác nhận" type="object" states="draft" class="oe_highlight"/>
+                    <button name="action_approve" string="Duyệt" type="object" states="confirmed" class="oe_highlight"/>
+                    <button name="action_draft" string="Quay lại nháp" type="object" states="confirmed,approved"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,approved"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="employee_id"/>
+                            <field name="period_id"/>
+                            <field name="employee_code"/>
+                            <field name="department_id"/>
+                            <field name="job_id"/>
+                            <field name="join_date"/>
+                        </group>
+                        <group>
+                            <field name="contract_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Thông tin lương">
+                            <group>
+                                <group string="Lương cơ bản">
+                                    <field name="salary_insurance"/>
+                                    <field name="basic_salary"/>
+                                </group>
+                                <group string="Phụ cấp">
+                                    <field name="seniority_allowance"/>
+                                    <field name="transport_allowance"/>
+                                    <field name="house_allowance"/>
+                                    <field name="environment_allowance"/>
+                                    <field name="fire_protection_allowance"/>
+                                    <field name="position_allowance"/>
+                                    <field name="work_allowance"/>
+                                    <field name="skill_allowance"/>
+                                    <field name="attendance_allowance"/>
+                                    <field name="soldering_xray_allowance"/>
+                                    <field name="other_allowance"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Thời gian làm việc">
+                            <group>
+                                <group string="Ngày công">
+                                    <field name="standard_working_days"/>
+                                    <field name="actual_working_days"/>
+                                    <field name="leave_days"/>
+                                    <field name="unpaid_leave_days"/>
+                                    <field name="unpaid_no_attendance_days"/>
+                                    <field name="salary_75_percent_days"/>
+                                    <field name="half_leave_days"/>
+                                    <field name="funeral_wedding_days"/>
+                                    <field name="holiday_days"/>
+                                </group>
+                                <group string="Tính toán">
+                                    <field name="workday_pay"/>
+                                    <field name="leave_balance"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="OT và làm thêm">
+                            <group>
+                                <group string="OT Bình thường">
+                                    <field name="ot_150_hours"/>
+                                    <field name="ot_150_amount"/>
+                                    <field name="ot_210_hours"/>
+                                    <field name="ot_210_amount"/>
+                                </group>
+                                <group string="OT Đêm">
+                                    <field name="ot_night_200_hours"/>
+                                    <field name="ot_night_200_amount"/>
+                                    <field name="ot_night_150_hours"/>
+                                    <field name="ot_night_150_amount"/>
+                                </group>
+                                <group string="Chủ nhật">
+                                    <field name="sunday_200_hours"/>
+                                    <field name="sunday_200_amount"/>
+                                    <field name="sunday_270_hours"/>
+                                    <field name="sunday_270_amount"/>
+                                </group>
+                                <group string="Ngày lễ">
+                                    <field name="holiday_300_hours"/>
+                                    <field name="holiday_300_amount"/>
+                                    <field name="holiday_390_hours"/>
+                                    <field name="holiday_390_amount"/>
+                                </group>
+                                <group string="Tổng">
+                                    <field name="total_ot_hours"/>
+                                    <field name="total_ot_amount"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Phụ cấp khác">
+                            <group>
+                                <group>
+                                    <field name="birthday_amount"/>
+                                    <field name="business_trip_amount"/>
+                                    <field name="compensation_amount"/>
+                                    <field name="evaluation_bonus"/>
+                                </group>
+                                <group>
+                                    <field name="leave_compensation"/>
+                                    <field name="child_support"/>
+                                    <field name="women_amount"/>
+                                    <field name="other_bonus"/>
+                                </group>
+                            </group>
+                            <group>
+                                <field name="total_allowance"/>
+                            </group>
+                        </page>
+                        <page string="Các khoản trừ">
+                            <group>
+                                <group>
+                                    <field name="violation_deduction"/>
+                                    <field name="uniform_card_deduction"/>
+                                    <field name="negative_leave_deduction"/>
+                                    <field name="late_early_deduction"/>
+                                </group>
+                                <group>
+                                    <field name="total_deduction"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Tổng kết">
+                            <group>
+                                <group>
+                                    <field name="gross_salary"/>
+                                    <field name="taxable_income"/>
+                                </group>
+                                <group>
+                                    <field name="social_insurance_8"/>
+                                    <field name="health_insurance_1_5"/>
+                                    <field name="unemployment_insurance_1"/>
+                                    <field name="pit_amount"/>
+                                    <field name="union_fee"/>
+                                    <field name="total_deductions"/>
+                                    <field name="net_salary" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+    <record id="action_salary_calculation" model="ir.actions.act_window">
+        <field name="name">Bảng tính lương</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">wdw.salary.calculation</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

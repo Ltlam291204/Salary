@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_salary_summary_tree" model="ir.ui.view">
+        <field name="name">Tóm tắt lương - Tree</field>
+        <field name="model">wdw.salary.summary</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="period_id"/>
+                <field name="total_employees"/>
+                <field name="total_gross_salary"/>
+                <field name="total_cost"/>
+            </tree>
+        </field>
+    </record>
+    
+    <record id="view_salary_summary_form" model="ir.ui.view">
+        <field name="name">Tóm tắt lương - Form</field>
+        <field name="model">wdw.salary.summary</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_generate_payslips" string="Tạo phiếu lương" type="object" class="oe_highlight"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="period_id"/>
+                        <field name="total_employees"/>
+                    </group>
+                    <group>
+                        <group string="Tổng quan">
+                            <field name="total_gross_salary" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="total_insurance" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="total_pit" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="total_union" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        </group>
+                        <group string="Chi phí công ty">
+                            <field name="total_cost" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        </group>
+                        <group string="Chi trả">
+                            <field name="salary_payment_expenses" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="first_advance" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="second_payment" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+    <record id="action_salary_summary" model="ir.actions.act_window">
+        <field name="name">Tóm tắt lương</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">wdw.salary.summary</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    
+    <record id="view_salary_config_form" model="ir.ui.view">
+        <field name="name">Cấu hình tính lương - Form</field>
+        <field name="model">wdw.salary.config</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group string="Thuế và giảm trừ">
+                            <field name="dependent_deduction"/>
+                            <field name="personal_deduction"/>
+                        </group>
+                        <group string="Hệ số OT">
+                            <field name="ot_150_rate"/>
+                            <field name="ot_210_rate"/>
+                            <field name="ot_night_200_rate"/>
+                            <field name="ot_night_150_rate"/>
+                            <field name="sunday_200_rate"/>
+                            <field name="sunday_270_rate"/>
+                            <field name="holiday_300_rate"/>
+                            <field name="holiday_390_rate"/>
+                        </group>
+                        <group string="Bảo hiểm">
+                            <field name="social_insurance_employee"/>
+                            <field name="social_insurance_company"/>
+                            <field name="health_insurance_employee"/>
+                            <field name="health_insurance_company"/>
+                            <field name="unemployment_insurance_employee"/>
+                            <field name="unemployment_insurance_company"/>
+                            <field name="union_fee_employee"/>
+                            <field name="union_fee_company"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+    <record id="action_salary_config" model="ir.actions.act_window">
+        <field name="name">Cấu hình tính lương</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">wdw.salary.config</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+    </record>
+</odoo>
