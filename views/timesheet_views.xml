@@ -1,28 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="view_salary_period_tree" model="ir.ui.view">
-        <field name="name">Kỳ lương - Tree</field>
+    <record id="view_salary_period_list" model="ir.ui.view">
+        <field name="name">Kỳ lương - list</field>
         <field name="model">wdw.salary.period</field>
+        <field name="type">list</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name"/>
                 <field name="date_from"/>
                 <field name="date_to"/>
                 <field name="state"/>
-            </tree>
+            </list>
         </field>
     </record>
-    
+
     <record id="view_salary_period_form" model="ir.ui.view">
         <field name="name">Kỳ lương - Form</field>
         <field name="model">wdw.salary.period</field>
+        <field name="type">form</field>
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <button name="action_confirm" string="Xác nhận" type="object" states="draft" class="oe_highlight"/>
-                    <button name="action_calculate" string="Tính lương" type="object" states="confirmed" class="oe_highlight"/>
-                    <button name="action_pay" string="Chi trả" type="object" states="calculated" class="oe_highlight"/>
-                    <button name="action_draft" string="Quay lại nháp" type="object" states="confirmed,calculated"/>
+                    <button name="action_confirm" string="Xác nhận" type="object"
+                            invisible="state != 'draft'" class="oe_highlight"/>
+                    <button name="action_calculate" string="Tính lương" type="object"
+                            invisible="state != 'confirmed'" class="oe_highlight"/>
+                    <button name="action_pay" string="Chi trả" type="object"
+                            invisible="state != 'calculated'" class="oe_highlight"/>
+                    <button name="action_draft" string="Quay lại nháp" type="object"
+                            invisible="state not in ('confirmed','calculated')"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,calculated,paid"/>
                 </header>
                 <sheet>
@@ -36,19 +42,20 @@
             </form>
         </field>
     </record>
-    
-    <record id="action_salary_period" model="ir.actions.act_window">
+
+    <record id="action_salary_period_unique" model="ir.actions.act_window">
         <field name="name">Kỳ lương</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">wdw.salary.period</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
-    
-    <record id="view_timesheet_tree" model="ir.ui.view">
-        <field name="name">Bảng chấm công - Tree</field>
+
+    <record id="view_timesheet_list" model="ir.ui.view">
+        <field name="name">Bảng chấm công - list</field>
         <field name="model">wdw.timesheet</field>
+        <field name="type">list</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="employee_id"/>
                 <field name="date"/>
                 <field name="day_of_week_name"/>
@@ -58,13 +65,14 @@
                 <field name="leave_type"/>
                 <field name="ot_150_percent"/>
                 <field name="late_early_hours"/>
-            </tree>
+            </list>
         </field>
     </record>
-    
+
     <record id="view_timesheet_form" model="ir.ui.view">
         <field name="name">Bảng chấm công - Form</field>
         <field name="model">wdw.timesheet</field>
+        <field name="type">form</field>
         <field name="arch" type="xml">
             <form>
                 <sheet>
@@ -115,11 +123,48 @@
             </form>
         </field>
     </record>
-    
+
     <record id="action_timesheet" model="ir.actions.act_window">
         <field name="name">Bảng chấm công</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">wdw.timesheet</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="action_salary_config" model="ir.actions.act_window">
+        <field name="name">Cấu hình tính lương</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">wdw.salary.config</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+    </record>
+
+    <record id="action_import_timesheet_wizard" model="ir.actions.act_window">
+        <field name="name">Import chấm công</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">wdw.import.timesheet.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="action_salary_calculation" model="ir.actions.act_window">
+        <field name="name">Bảng tính lương</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">wdw.salary.calculation</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="action_pay_slip" model="ir.actions.act_window">
+        <field name="name">Phiếu lương</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">wdw.pay.slip</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="action_salary_summary" model="ir.actions.act_window">
+        <field name="name">Tóm tắt lương</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">wdw.salary.summary</field>
+        <field name="view_mode">list,form</field>
     </record>
 </odoo>

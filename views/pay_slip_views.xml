@@ -1,27 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="view_pay_slip_tree" model="ir.ui.view">
-        <field name="name">Phiếu lương - Tree</field>
+    <record id="view_pay_slip_list" model="ir.ui.view">
+        <field name="name">Phiếu lương - list</field>
         <field name="model">wdw.pay.slip</field>
+        <field name="type">list</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="employee_id"/>
                 <field name="period_id"/>
                 <field name="gross_salary"/>
                 <field name="total_deductions"/>
                 <field name="net_salary"/>
                 <field name="state"/>
-            </tree>
+            </list>
         </field>
     </record>
-    
+
     <record id="view_pay_slip_form" model="ir.ui.view">
         <field name="name">Phiếu lương - Form</field>
         <field name="model">wdw.pay.slip</field>
+        <field name="type">form</field>
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <button name="action_send_payslip" string="Gửi email" type="object" states="draft" class="oe_highlight"/>
+                    <button name="action_send_payslip" string="Gửi email" type="object"
+                            invisible="state != 'draft'" class="oe_highlight"/>
                     <button name="action_print_payslip" string="In phiếu lương" type="object" class="oe_highlight"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,sent"/>
                 </header>
@@ -125,7 +128,8 @@
                                     <field name="gross_salary" readonly="1"/>
                                 </group>
                                 <group>
-                                    <field name="net_salary" readonly="1" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                    <field name="net_salary" readonly="1" class="oe_subtotal_footer_separator"
+                                           widget="monetary" options="{'currency_field': 'currency_id'}"/>
                                 </group>
                             </group>
                         </page>
@@ -134,11 +138,11 @@
             </form>
         </field>
     </record>
-    
+
     <record id="action_pay_slip" model="ir.actions.act_window">
         <field name="name">Phiếu lương</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">wdw.pay.slip</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 </odoo>

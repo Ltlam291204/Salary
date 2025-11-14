@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <menuitem id="menu_wdw_root" name="Wdw Salary" sequence="10" web_icon="wdw_salary_management,static/description/icon.png"/>
-    
+    <menuitem id="menu_wdw_root" name="Wdw Salary" sequence="10"
+              web_icon="wdw_salary_management,static/description/icon.png"/>
+
     <menuitem id="menu_configuration" name="Cấu hình" parent="menu_wdw_root" sequence="1"/>
     <menuitem id="menu_timesheet" name="Chấm công" parent="menu_wdw_root" sequence="2"/>
     <menuitem id="menu_salary" name="Tính lương" parent="menu_wdw_root" sequence="3"/>
     <menuitem id="menu_report" name="Báo cáo" parent="menu_wdw_root" sequence="4"/>
-    
-    <!-- Sub menu -->
-    <menuitem id="menu_salary_period" name="Kỳ lương" parent="menu_configuration" 
-              action="action_salary_period" sequence="1"/>
-    <menuitem id="menu_salary_config" name="Cấu hình tính lương" parent="menu_configuration" 
+
+    <menuitem id="menu_salary_period" name="Kỳ lương" parent="menu_configuration"
+              action="action_salary_period_unique" sequence="1"/>
+    <menuitem id="menu_salary_config" name="Cấu hình tính lương" parent="menu_configuration"
               action="action_salary_config" sequence="2"/>
-    
-    <menuitem id="menu_timesheet_import" name="Import chấm công" parent="menu_timesheet" 
+
+    <menuitem id="menu_timesheet_import" name="Import chấm công" parent="menu_timesheet"
               action="action_import_timesheet_wizard" sequence="1"/>
-    <menuitem id="menu_timesheet_list" name="Bảng chấm công" parent="menu_timesheet" 
+    <menuitem id="menu_timesheet_list" name="Bảng chấm công" parent="menu_timesheet"
               action="action_timesheet" sequence="2"/>
-    
-    <menuitem id="menu_salary_calculation" name="Bảng tính lương" parent="menu_salary" 
+
+    <menuitem id="menu_salary_calculation" name="Bảng tính lương" parent="menu_salary"
               action="action_salary_calculation" sequence="1"/>
-    <menuitem id="menu_pay_slip" name="Phiếu lương" parent="menu_salary" 
+    <menuitem id="menu_pay_slip" name="Phiếu lương" parent="menu_salary"
               action="action_pay_slip" sequence="2"/>
-    
-    <menuitem id="menu_salary_summary" name="Tóm tắt lương" parent="menu_report" 
+
+    <menuitem id="menu_salary_summary" name="Tóm tắt lương" parent="menu_report"
               action="action_salary_summary" sequence="1"/>
 </odoo>

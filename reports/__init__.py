@@ -1,1 +1,1 @@
-from . import report_pay_slip
+# Để trống – không import gì để tránh circular import
